@@ -13,8 +13,7 @@ ss_menu() {
 # For conditional directory navigation
 #  [ -z "`echo $1 | grep index.md`" ] && echo "<li><a href=\"index.html\">.</a></li>"
 #  [ "`dirname $1`" != "." ] && echo "<li><a href=\"../index.html\">..</a></li>"
-  echo "<li><a href=\"index.html\">.</a></li>"
-  echo "<li><a href=\"../index.html\">..</a></li>"
+  echo "<li><a href=\"index.html\">index</a></li>"
   FILES=`ls \`dirname $1\` | sed -e 's/\.md$/.html/g'`
   for i in $FILES ; do
     ss_filter $i && continue
@@ -43,10 +42,6 @@ _header_
   ss_style
 
   cat << _header_
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script src="http://fonts.googleapis.com/css?family=Open+Sans:400,600"></script>
   </head>
   <body>
     <header>
@@ -70,7 +65,9 @@ _header_
   # Footer
   cat << _footer_
   <footer>
-    <div class="right"><a href="http://github.com/wlangstroth/simple-static">Powered by simple-static</a></div>
+    <div class="right"><a
+    href="http://github.com/walafc0/simple-static-nojs"> Powered by simple-static-nojs.</a>
+    Generated on $(uname -sro). Last update: $(date)</div>
   </footer>
   </body>
 </html>
