@@ -36,7 +36,7 @@ Copy the `site/` folder to your working directory, and edit files to fit your
 needs.
 
  * If you have installed `ss` in another path than `/usr/local`, then change the
-   `SS` variable
+   `SS` variable in Makefile
  * Set the remote server and folder for the deployment
 
 
