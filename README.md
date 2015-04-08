@@ -24,9 +24,9 @@ Or if you want to specify the installation path
 
     $ make install PREFIX=/usr/local
 
-**There may be a conflict with the `ss` binary. Be sure this program isn't
-  installed on your machine before proceeding, or change the installation
-  path.**
+**There may be a conflict with the `ss` binary provided by `iproute2` package
+  (on Debian, Archlinux). Be sure this program isn't installed on your machine
+  before proceeding, or change the installation path.**
 
 
 
