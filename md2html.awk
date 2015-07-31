@@ -154,7 +154,7 @@ function nextil(t) {
       if(match(url, /^<.*>$/))
         url = substr(url, 2, RLENGTH - 2);
       url = eschtml(url);
-      return t1 "<a href=\"" url "\"" title ">" nextil(linktext) "</a>" nextil(pt2);
+      return t1 "<a name=\"" nextil(linktext) "\" href=\"" url "\"" title ">" nextil(linktext) "</a>" nextil(pt2);
     }
     else{
       # Referenced
