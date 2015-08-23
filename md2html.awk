@@ -209,7 +209,7 @@ function printp(tag) {
   if(!match(text, /^[   ]*$/)){
     text = inline(text);
     if(tag != "")
-      oprint("<" tag ">" text "</" tag ">");
+      oprint("        <" tag ">" text "</" tag ">");
     else
       oprint(text);
   }
@@ -249,9 +249,9 @@ BEGIN {
 !html && /^<(address|blockquote|center|dir|div|dl|fieldset|form|h[1-6r]|\
 isindex|menu|noframes|noscript|ol|p|pre|table|ul|!--)/ {
   if(code)
-    oprint("</pre></code>");
+    oprint("        </pre></code>");
   for(; !text && block[nl] == "blockquote"; nl--)
-    oprint("</blockquote>");
+    oprint("        </blockquote>");
   match($0, /^<(address|blockquote|center|dir|div|dl|fieldset|form|h[1-6r]|\
   isindex|menu|noframes|noscript|ol|p|pre|table|ul|!--)/);
   htag = substr($0, 2, RLENGTH - 1);
@@ -296,7 +296,7 @@ nnl < nl && !blank && text && ! /^ ? ? ?([*+-]|([0-9]+\.)+)( +|  )/ { nnl = nl; 
 { hr = 0; }
 (blank || (!text && !code)) && /^ ? ? ?([-*_][   ]*)([-*_][   ]*)([-*_][   ]*)+$/ {
   if(code){
-    oprint("</pre></code>");
+    oprint("        </pre></code>");
     code = 0;
   }
   blank = 0;
@@ -327,7 +327,7 @@ newli {
   blank = 0;
   printp(par);
   if(nnl == nl && block[nl] == nblock[nl])
-    oprint("</li><li>");
+    oprint("          </li>\n          <li>");
 }
 blank && ! /^$/ {
   if(match(block[nnl], /[ou]l/) && !par)
@@ -340,7 +340,7 @@ blank && ! /^$/ {
 # Close old blocks and open new ones
 nnl != nl || nblock[nl] != block[nl] {
   if(code){
-    oprint("</pre></code>");
+    oprint("        </pre></code>");
     code = 0;
   }
   printp(par);
@@ -350,20 +350,20 @@ nnl != nl || nblock[nl] != block[nl] {
 nnl < nl || (nnl == nl && nblock[nl] != block[nl]) {
   for(; nl > nnl || (nnl == nl && pblock[nl] != block[nl]); nl--){
     if(match(block[nl], /[ou]l/))
-      oprint("</li>");
-    oprint("</" block[nl] ">");
+      oprint("          </li>");
+    oprint("        </" block[nl] ">");
   }
 }
 nnl > nl {
   for(; nl < nnl; nl++){
     block[nl + 1] = nblock[nl + 1];
-    oprint("<" block[nl + 1] ">");
+    oprint("        <" block[nl + 1] ">");
     if(match(block[nl + 1], /[ou]l/))
-      oprint("<li>");
+      oprint("          <li>");
   }
 }
 hr {
-  oprint("<hr>");
+  oprint("        <hr>");
   next;
 }
 
@@ -379,14 +379,14 @@ code && /^$/ {
     oprint("");
   blank = 0;
   if(!code)
-    oprint("<code><pre>");
+    oprint("        <code>\n          <pre>");
   code = 1;
   $0 = eschtml($0);
   oprint($0);
   next;
 }
 code {
-  oprint("</pre></code>");
+  oprint("          </pre>\n        </code>");
   code = 0;
 }
 
@@ -413,14 +413,14 @@ text && /^-+$/ {printp("h2"); next;}
 
 END {
   if(code){
-    oprint("</pre></code>");
+    oprint("        </pre></code>");
     code = 0;
   }
   printp(par);
   for(; nl > 0; nl--){
-    if(match(block[nl], /[ou]l/))
-      oprint("</li>");
-    oprint("</" block[nl] ">");
+    if(match(block[nl],   /[ou]l/))
+      oprint("          </li>");
+    oprint("        </" block[nl] ">");
   }
   gsub(/<<[^\"]*/, "", otext);
   print(otext);
