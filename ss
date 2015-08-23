@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 # simple-static site generator
 
 # Blacklist filter (BLACKLIST in the config file)
@@ -96,12 +96,12 @@ if [ -z "$INPUT_DIR" ] || [ ! -d $INPUT_DIR ]; then
 fi
 
 # Load config file
-if [ ! -f ss.conf ]; then
+if [ ! -f $PWD/ss.conf ]; then
   echo "Cannot find ss.conf in current directory"
   exit 1
 fi
 
-. ss.conf
+. $PWD/ss.conf
 
 WORKING_DIR=$PWD
 OUTPUT_DIR="$WORKING_DIR/`basename $INPUT_DIR`.static"
