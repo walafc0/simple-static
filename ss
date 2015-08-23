@@ -9,29 +9,29 @@ ss_filter() {
 }
 
 ss_menu() {
-  echo "<ul>"
+  echo "      <ul>"
 # For conditional directory navigation
 #  [ -z "`echo $1 | grep index.md`" ] && echo "<li><a href=\"index.html\">.</a></li>"
 #  [ "`dirname $1`" != "." ] && echo "<li><a href=\"../index.html\">..</a></li>"
-  echo "<li><a href=\"index.html\">index</a></li>"
+  echo "        <li><a href=\"index.html\">index</a></li>"
   FILES=`ls \`dirname $1\` | sed -e 's/\.md$/.html/g'`
   for i in $FILES ; do
     ss_filter $i && continue
     NAME=`echo $i | sed -e 's/\..*$//'`
     [ -z "`echo $i | grep '\..*$'`" ] && i="$i/index.html"
-    echo "<li><a href=\"$i\">$NAME</a></li>"
+    echo "        <li><a href=\"$i\">$NAME</a></li>"
   done
-  echo "</ul>"
+  echo "      </ul>"
 }
 
 ss_page() {
   # Header
   cat << _header_
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
   <head>
     <title>${TITLE}</title>
     <!-- <link rel="icon" href="/favicon.png" type="image/png"> -->
@@ -51,27 +51,25 @@ _header_
 _header_
 
   # Menu
-  echo "   <nav>"
+  echo "      <nav>"
   ss_menu $1
-  echo "   </nav>"
+  echo "      </nav>"
 
-  echo "  </header>"
+  echo "    </header>"
 
   # Body
-  echo "<div id=\"background\"> <img src=images/background.png> </div>"
-  echo "<div id=\"main\">"
-  echo "<div id=\"container\">"
+  echo "    <div id=\"background\"> <img src=images/background.png> </div>"
+  echo "    <div id=\"main\">"
+  echo "      <div id=\"container\">"
   $MDHANDLER $1
-  echo "</div>"
-  echo "</div>"
+  echo "      </div>"
+  echo "    </div>"
 
   # Footer
   cat << _footer_
-  <footer>
-    <div class="right"><a
-    href="http://github.com/walafc0/simple-static-nojs"> Powered by simple-static-nojs.</a>
-    Generated on $(uname -sro). Last update: $(date)</div>
-  </footer>
+    <footer>
+      <div class="right"><a href="http://github.com/walafc0/simple-static-nojs">Powered by simple-static-nojs.</a> Generated on $(uname -sro). Last update: $(date)</div>
+    </footer>
   </body>
 </html>
 _footer_
@@ -79,9 +77,9 @@ _footer_
 
 ss_style() {
   if [ -f $WORKING_DIR/style.css ]; then
-    echo '<style>'
+    echo '    <style>'
     cat $WORKING_DIR/style.css
-    echo '</style>'
+    echo '    </style>'
   fi
 }
 
