@@ -58,8 +58,8 @@ _header_
   echo "  </header>"
 
   # Body
-  echo "<div id=\"main\">"
   echo "<div id=\"background\"> <img src=images/background.png> </div>"
+  echo "<div id=\"main\">"
   $MDHANDLER $1
   echo "</div>"
 
